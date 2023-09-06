@@ -4,6 +4,7 @@
   "description": "Full_Stack E-commerce Website Using MERN Stack",
   "main": "backend/server.js",
   "scripts": {
+    
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "\"dayarat\"",
