@@ -2,7 +2,8 @@ import {React,useState} from 'react';
 import {AiOutlineEyeInvisible} from "react-icons/ai";
 import styles from "../../styles/styles";
 import {Link} from "react-router-dom";
-import {RxAvatar} from "react-icons/rx"
+import {RxAvatar} from "react-icons/rx";
+import axios from "axios";
 
 const Signup = () => {
     const [email,setEmail] = useState("");
@@ -12,7 +13,20 @@ const Signup = () => {
     const [avatar, setAvatar] = useState(null);
 
     const handleSubmit = () => {
-        console.log("ffff");
+      e.preventDefault();
+      const config = {Headers: {"Content-Type":"multipart/form-data"}};
+      const newForm = new FormData();
+
+      newForm.append("file", avatar);
+      newForm.append("name", name);
+      newForm.append("email", email);
+      newForm.append("password", password);
+
+        axios.post(`${server}/user/create-user`, newForm, config).then((res) => {
+          console.log(res)
+        }).catch((err) => {
+          console.log(err);
+        })
     };
 
     const handleFileInputChange = (e) => {
@@ -28,7 +42,7 @@ const Signup = () => {
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" >
+          <form className="space-y-6" onSubmit={handleSubmit} >
             <div>
               <label
                 htmlFor="email"
