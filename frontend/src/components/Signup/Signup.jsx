@@ -4,6 +4,7 @@ import styles from "../../styles/styles";
 import {Link} from "react-router-dom";
 import {RxAvatar} from "react-icons/rx";
 import axios from "axios";
+import { server } from "../../server";
 
 const Signup = () => {
     const [email,setEmail] = useState("");
@@ -12,7 +13,7 @@ const Signup = () => {
     const [visible, setVisible] = useState(false);
     const [avatar, setAvatar] = useState(null);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
       e.preventDefault();
       const config = {Headers: {"Content-Type":"multipart/form-data"}};
       const newForm = new FormData();
