@@ -5,6 +5,10 @@ import {Link} from "react-router-dom";
 import {RxAvatar} from "react-icons/rx";
 import axios from "axios";
 import { server } from "../../server";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const Signup = () => {
     const [email,setEmail] = useState("");
@@ -23,10 +27,17 @@ const Signup = () => {
       newForm.append("email", email);
       newForm.append("password", password);
 
-        axios.post(`${server}/user/create-user`, newForm, config).then((res) => {
-          console.log(res)
-        }).catch((err) => {
-          console.log(err);
+        axios.post(`${server}/user/create-user`, newForm, config)
+        .then((res) => {
+          toast.success(res.data.message);
+          setName("");
+          setEmail("");
+          setPassword("");
+          setAvatar();
+
+        }).catch((error) => {
+          toast.error(error.response.data.message)
+          
         })
     };
 
