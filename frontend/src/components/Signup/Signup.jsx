@@ -16,16 +16,17 @@ const Signup = () => {
     const [password,setPassword] = useState("");
     const [visible, setVisible] = useState(false);
     const [avatar, setAvatar] = useState(null);
+    
 
     const handleSubmit = (e) => {
       e.preventDefault();
       const config = {Headers: {"Content-Type":"multipart/form-data"}};
       const newForm = new FormData();
 
-      newForm.append("file", avatar);
       newForm.append("name", name);
       newForm.append("email", email);
       newForm.append("password", password);
+      newForm.append("file", avatar);
 
         axios.post(`${server}/user/create-user`, newForm, config)
         .then((res) => {
@@ -40,6 +41,8 @@ const Signup = () => {
           
         })
     };
+
+    
 
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];

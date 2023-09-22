@@ -9,6 +9,7 @@ const fs = require ("fs");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
 const sendToken = require("../utils/jwtToken");
+const { isAuthenticated, isAdmin } = require("../middleware/auth");
 
 router.post("/create-user", upload.single("file"), async (req,res,next) => {
     const { name, email, password } = req.body;
@@ -37,7 +38,7 @@ router.post("/create-user", upload.single("file"), async (req,res,next) => {
 
     const activationToken = createActivationToken(user);
 
-    const activationUrl = `https://eshop-tutorial-pyri.vercel.app/activation/${activationToken}`;
+    const activationUrl = `https://loacalhost:3000/activation/${activationToken}`;
     
     try {
         await sendMail({
@@ -63,9 +64,7 @@ const createActivationToken = (user) => {
 
 
 // activate user
-router.post(
-    "/activation",
-    catchAsyncErrors(async (req, res, next) => {
+router.post("/activation", catchAsyncErrors(async (req, res, next) => {
       try {
         const { activation_token } = req.body;
   
