@@ -15,12 +15,10 @@ import {
 const Header = () => {
   const [searchTerm,setSearchTerm] = useState("");
   const [searchData,setSearchData] = useState(null);
-  const link = Link();
 
-  const handleSearchChange = () => {
-    // const term = e.target.value;
-    // setSearchTerm(term);
-    link.push(`/search?term=${searchTerm}`);
+  const handleSearchChange = (e) => {
+    const term = e.target.value;
+    setSearchTerm(term);
 
     const filteredProducts = productData && productData.filter((product) => 
       product.name.toLowerCase().includes(term.toLowerCase())
@@ -41,7 +39,7 @@ const Header = () => {
       {/* search box*/}
       <div className="w-[50%] relative">
             <input
-              type="text" placeholder="Search Product..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="h-[40px] w-full px-2 border-[#3957db] border-[2px] rounded-md"
+              type="text" placeholder="Search Product..." value={searchTerm} onChange={handleSearchChange} className="h-[40px] w-full px-2 border-[#3957db] border-[2px] rounded-md"
             />
             <AiOutlineSearch
               size={30} className="absolute right-2 top-1.5 cursor-pointer"
